@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { Snowflake, User, UserResolvable } from "discord.js";
 import { Readable, Duplex } from "stream";
 import { Queue } from "../Structures/Queue";
@@ -5,14 +6,11 @@ import Track from "../Structures/Track";
 import { Playlist } from "../Structures/Playlist";
 import { StreamDispatcher } from "../VoiceInterface/StreamDispatcher";
 import { downloadOptions } from "ytdl-core";
-
-export type FiltersName = keyof QueueFilters;
-
+export declare type FiltersName = keyof QueueFilters;
 export interface PlayerSearchResult {
     playlist: Playlist | null;
     tracks: Track[];
 }
-
 /**
  * @typedef {AudioFilters} QueueFilters
  */
@@ -51,7 +49,6 @@ export interface QueueFilters {
     dim?: boolean;
     earrape?: boolean;
 }
-
 /**
  * The track source:
  * - soundcloud
@@ -60,9 +57,7 @@ export interface QueueFilters {
  * - arbitrary
  * @typedef {string} TrackSource
  */
-
-export type TrackSource = "soundcloud" | "youtube" | "spotify" | "arbitrary" | "applemusic";
-
+export declare type TrackSource = "soundcloud" | "youtube" | "spotify" | "arbitrary" | "applemusic";
 /**
  * @typedef {object} RawTrackData
  * @property {string} title The title
@@ -90,11 +85,10 @@ export interface RawTrackData {
     requestedBy: User;
     playlist?: Playlist;
     source?: TrackSource;
-    engine?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    engine?: any;
     live?: boolean;
-    raw?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    raw?: any;
 }
-
 /**
  * @typedef {object} TimeData
  * @property {number} days Time in days
@@ -108,7 +102,6 @@ export interface TimeData {
     minutes: number;
     seconds: number;
 }
-
 /**
  * @typedef {object} PlayerProgressbarOptions
  * @property {boolean} [timecodes] If it should render time codes
@@ -123,7 +116,6 @@ export interface PlayerProgressbarOptions {
     line?: string;
     indicator?: string;
 }
-
 /**
  * @typedef {object} PlayerOptions
  * @property {boolean} [leaveOnEnd=true] If it should leave on end
@@ -154,7 +146,6 @@ export interface PlayerOptions {
     volumeSmoothness?: number;
     onBeforeCreateStream?: (track: Track, source: TrackSource, queue: Queue) => Promise<Readable>;
 }
-
 /**
  * @typedef {object} ExtractorModelData
  * @property {object} [playlist] The playlist info (if any)
@@ -171,7 +162,6 @@ export interface PlayerOptions {
  * @property {any} [playlist.rawPlaylist] The raw data
  * @property {ExtractorData[]} data The data
  */
-
 /**
  * @typedef {object} ExtractorData
  * @property {string} title The title
@@ -198,7 +188,7 @@ export interface ExtractorModelData {
         };
         id: string;
         url: string;
-        rawPlaylist?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+        rawPlaylist?: any;
     };
     data: {
         title: string;
@@ -213,7 +203,6 @@ export interface ExtractorModelData {
         source?: TrackSource;
     }[];
 }
-
 /**
  * The search query type
  * This can be one of:
@@ -235,54 +224,49 @@ export interface ExtractorModelData {
  * - SOUNDCLOUD_SEARCH
  * @typedef {number} QueryType
  */
-export enum QueryType {
-    AUTO,
-    YOUTUBE,
-    YOUTUBE_PLAYLIST,
-    SOUNDCLOUD_TRACK,
-    SOUNDCLOUD_PLAYLIST,
-    SOUNDCLOUD,
-    SPOTIFY_SONG,
-    SPOTIFY_ALBUM,
-    SPOTIFY_PLAYLIST,
-    FACEBOOK,
-    VIMEO,
-    ARBITRARY,
-    REVERBNATION,
-    YOUTUBE_SEARCH,
-    YOUTUBE_VIDEO,
-    SOUNDCLOUD_SEARCH,
-    APPLE_MUSIC_TRACK,
-    APPLE_MUSIC_PLAYLIST,
-    APPLE_MUSIC_ALBUM
+export declare enum QueryType {
+    AUTO = 0,
+    YOUTUBE = 1,
+    YOUTUBE_PLAYLIST = 2,
+    SOUNDCLOUD_TRACK = 3,
+    SOUNDCLOUD_PLAYLIST = 4,
+    SOUNDCLOUD = 5,
+    SPOTIFY_SONG = 6,
+    SPOTIFY_ALBUM = 7,
+    SPOTIFY_PLAYLIST = 8,
+    FACEBOOK = 9,
+    VIMEO = 10,
+    ARBITRARY = 11,
+    REVERBNATION = 12,
+    YOUTUBE_SEARCH = 13,
+    YOUTUBE_VIDEO = 14,
+    SOUNDCLOUD_SEARCH = 15,
+    APPLE_MUSIC_TRACK = 16,
+    APPLE_MUSIC_PLAYLIST = 17,
+    APPLE_MUSIC_ALBUM = 18
 }
-
 /**
  * Emitted when bot gets disconnected from a voice channel
  * @event Player#botDisconnect
  * @param {Queue} queue The queue
  */
-
 /**
  * Emitted when the voice channel is empty
  * @event Player#channelEmpty
  * @param {Queue} queue The queue
  */
-
 /**
  * Emitted when bot connects to a voice channel
  * @event Player#connectionCreate
  * @param {Queue} queue The queue
  * @param {StreamDispatcher} connection The discord player connection object
  */
-
 /**
  * Debug information
  * @event Player#debug
  * @param {Queue} queue The queue
  * @param {string} message The message
  */
-
 /**
  * Emitted on error
  * <warn>This event should handled properly otherwise it may crash your process!</warn>
@@ -290,49 +274,41 @@ export enum QueryType {
  * @param {Queue} queue The queue
  * @param {Error} error The error
  */
-
 /**
  * Emitted on connection error. Sometimes stream errors are emitted here as well.
  * @event Player#connectionError
  * @param {Queue} queue The queue
  * @param {Error} error The error
  */
-
 /**
  * Emitted when queue ends
  * @event Player#queueEnd
  * @param {Queue} queue The queue
  */
-
 /**
  * Emitted when a single track is added
  * @event Player#trackAdd
  * @param {Queue} queue The queue
  * @param {Track} track The track
  */
-
 /**
  * Emitted when multiple tracks are added
  * @event Player#tracksAdd
  * @param {Queue} queue The queue
  * @param {Track[]} tracks The tracks
  */
-
 /**
  * Emitted when a track starts playing
  * @event Player#trackStart
  * @param {Queue} queue The queue
  * @param {Track} track The track
  */
-
 /**
  * Emitted when a track ends
  * @event Player#trackEnd
  * @param {Queue} queue The queue
  * @param {Track} track The track
  */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface PlayerEvents {
     botDisconnect: (queue: Queue) => any;
     channelEmpty: (queue: Queue) => any;
@@ -346,9 +322,6 @@ export interface PlayerEvents {
     trackStart: (queue: Queue, track: Track) => any;
     trackEnd: (queue: Queue, track: Track) => any;
 }
-
-/* eslint-enable @typescript-eslint/no-explicit-any */
-
 /**
  * @typedef {object} PlayOptions
  * @property {boolean} [filtersUpdate=false] If this play was triggered for filters update
@@ -362,7 +335,6 @@ export interface PlayOptions {
     seek?: number;
     immediate?: boolean;
 }
-
 /**
  * @typedef {object} SearchOptions
  * @property {UserResolvable} requestedBy The user who requested this search
@@ -374,7 +346,6 @@ export interface SearchOptions {
     searchEngine?: QueryType | string;
     blockExtractor?: boolean;
 }
-
 /**
  * The queue repeat mode. This can be one of:
  * - OFF
@@ -383,13 +354,12 @@ export interface SearchOptions {
  * - AUTOPLAY
  * @typedef {number} QueueRepeatMode
  */
-export enum QueueRepeatMode {
+export declare enum QueueRepeatMode {
     OFF = 0,
     TRACK = 1,
     QUEUE = 2,
     AUTOPLAY = 3
 }
-
 /**
  * @typedef {object} PlaylistInitData
  * @property {Track[]} tracks The tracks of this playlist
@@ -418,9 +388,8 @@ export interface PlaylistInitData {
     };
     id: string;
     url: string;
-    rawPlaylist?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    rawPlaylist?: any;
 }
-
 /**
  * @typedef {object} TrackJSON
  * @property {string} title The track title
@@ -447,7 +416,6 @@ export interface TrackJSON {
     requestedBy: Snowflake;
     playlist?: PlaylistJSON;
 }
-
 /**
  * @typedef {object} PlaylistJSON
  * @property {string} id The playlist id
@@ -476,7 +444,6 @@ export interface PlaylistJSON {
     };
     tracks: TrackJSON[];
 }
-
 /**
  * @typedef {object} PlayerInitOptions
  * @property {boolean} [autoRegisterExtractor=true] If it should automatically register `@discord-player/extractor`

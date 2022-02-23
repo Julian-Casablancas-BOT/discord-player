@@ -33,7 +33,6 @@ class ExtractorModel {
      * @returns {Promise<ExtractorModelData>}
      */
     async handle(query: string): Promise<ExtractorModelData> {
-        
         let data;
 
         if (!linkType(query)) {
@@ -41,7 +40,6 @@ class ExtractorModel {
         } else {
             return makeData(query);
         }
-
 
         if (!data) return null;
 
